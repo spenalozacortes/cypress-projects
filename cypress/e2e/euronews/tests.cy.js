@@ -70,7 +70,7 @@ describe('Euronews tests', () => {
         // Check if following newsletters and their data are present on the page
         // All mentioned newsletters are present on the page and their data is matching 
         newsletters.forEach(newsletter => {
-            cy.get('.p-8').contains(newsletter.name).should('exist');
+            cy.get('.p-8').contains(newsletter.name).should('be.visible');
             cy.get('.p-8').each(($el, index, $list) => {
                 const name = $el.text();
                 if (name.includes(newsletter.name)) {
@@ -130,6 +130,6 @@ describe('Euronews tests', () => {
         });
         cy.get('input[value="Create my account"]').click();
         // Thank you message is displayed
-        cy.contains('Thank you, check your emails').should('exist');
+        cy.contains('Thank you, check your emails').should('be.visible');
     });
 });
