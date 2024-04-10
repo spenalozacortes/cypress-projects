@@ -19,6 +19,16 @@ Cypress.Commands.add('selectRandomSuffix', () => {
     });
 });
 
+Cypress.Commands.add('selectNewsletter', (newsletter) => {
+  cy.get('.p-8').each(($el, index, $list) => {
+    if ($el.find('h2').text().includes(newsletter)) {
+        cy.wrap($el.find('.btn-tertiary')).click();
+        // “Select this newsletter” is changed to “Chosen”. 
+        expect($el.find('.checked-label').text()).to.contain('Chosen');
+    }
+  });
+});
+
 //
 //
 // -- This is a child command --

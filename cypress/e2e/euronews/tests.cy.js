@@ -81,20 +81,13 @@ describe('Euronews tests', () => {
         });
         // Step 4 
         // Click "Select this newsletter" on any newsletter
-        let newsletter = 'Euronews Today';
-        cy.get('.p-8').each(($el, index, $list) => {
-            if ($el.find('h2').text().includes(newsletter)) {
-                cy.wrap($el.find('.btn-tertiary')).click();
-                // “Select this newsletter” is changed to “Chosen”. 
-                expect($el.find('.checked-label').text()).to.contain('Chosen');
-            }
-        });
+        cy.selectNewsletter('Euronews Today');
         // Create account pop-up is pinned. 
         cy.get('.cta-newsletter-esturgeon').should('have.class', 'sticky');
         // Step 5
         // Click “Chosen”
         cy.get('.p-8').each(($el, index, $list) => {
-            if ($el.find('h2').text().includes(newsletter)) {
+            if ($el.find('h2').text().includes('Euronews Today')) {
                 cy.wrap($el.find('.btn-tertiary-plain')).click();
             }
         });
@@ -102,14 +95,7 @@ describe('Euronews tests', () => {
         cy.get('.cta-newsletter-esturgeon').should('not.have.class', 'sticky');
         // Step 6
         // Repeat step 4 
-        newsletter = 'Travel';
-        cy.get('.p-8').each(($el, index, $list) => {
-            if ($el.find('h2').text().includes(newsletter)) {
-                cy.wrap($el.find('.btn-tertiary')).click();
-                // “Select this newsletter” is changed to “Chosen”. 
-                expect($el.find('.checked-label').text()).to.contain('Chosen');
-            }
-        });
+        cy.selectNewsletter('Travel');
         // Create account pop-up is pinned. 
         cy.get('.cta-newsletter-esturgeon').should('have.class', 'sticky');
         // Step 7
