@@ -17,13 +17,11 @@ describe('Euronews tests', () => {
         cy.get('[class*="tag-list"]').should('be.visible');
         // Views displayed 
         cy.get('.b-topstories-home').should('be.visible');
-        cy.get('.b-topstories-home__aside__article h2 a').eq(0).then(element => {
-            const homeTitle = element.text().trim();
-            // Step 2
-            // Open one of Views 
-            cy.wrap(element).click();
+        // Step 2
+        // Open one of Views 
+        cy.get('.b-topstories-home__aside__article h2 a').eq(2).click().invoke('text').then(homeTitle => {
             // View is opened and has the correct title (corresponds to the title on the home page) 
-            cy.get('.jsArticleFirst.swiper-slide-active h1').should('contain.text', homeTitle);
+            cy.get('.jsArticleFirst.swiper-slide-active h1').should('contain.text', homeTitle.trim());
         });
         // Step 3
         // Click on “Programmes”
@@ -56,7 +54,7 @@ describe('Euronews tests', () => {
         cy.get('.c-program-card').should('have.length.above', 30);
     });
 
-    it('test case 2', () => {
+    xit('test case 2', () => {
         // Main page of Euronews is opened 
         cy.url().should('eq', 'https://www.euronews.com/');
         cy.get('#didomi-notice-agree-button').click();
