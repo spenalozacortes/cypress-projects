@@ -2,6 +2,7 @@
 import urls from '../../fixtures/urls.json';
 import newsletters from '../../fixtures/newsletters.json';
 import testdata from '../../fixtures/testdata.json';
+import Utils from '../../support/utils';
 
 describe('Euronews tests', () => {
     beforeEach(() => {
@@ -10,7 +11,7 @@ describe('Euronews tests', () => {
         cy.visit(urls.euronews);
     });
 
-    it('test case 1', () => {
+    xit('test case 1', () => {
         // Main page of Euronews is opened 
         cy.url().should('eq', 'https://www.euronews.com/');
         cy.get('#didomi-notice-agree-button').click();
@@ -54,7 +55,7 @@ describe('Euronews tests', () => {
         cy.get('.c-program-card').should('have.length.above', 30);
     });
 
-    xit('test case 2', () => {
+    it('test case 2', () => {
         // Main page of Euronews is opened 
         cy.url().should('eq', 'https://www.euronews.com/');
         cy.get('#didomi-notice-agree-button').click();
@@ -113,20 +114,17 @@ describe('Euronews tests', () => {
         cy.get('.cta-newsletter-esturgeon').should('have.class', 'sticky');
         // Step 7
         // Type random email in create account pop-up. Click “Continue” 
-        cy.generateRandomString(10).then(randomString => {
-            let randomEmail = randomString + '@gmail.com';
-            cy.get('[type="email"]').type(randomEmail);
-            cy.get('[value="Continue"]').click();
-            // Complete registration page is opened
-            cy.url().should('contain', 'register');
-            // The email field is automatically filled with the correct email
-            cy.get('input[id*="loginID"]').should('have.text', randomEmail);
-        });
+        const randomEmail = Utils.generateRandomString(5) + '@gmail.com';
+        cy.get('[type="email"]').type(randomEmail);
+        cy.get('[value="Continue"]').click();
+        // Complete registration page is opened
+        cy.url().should('contain', 'register');
+        // The email field is automatically filled with the correct email
+        cy.get('input[id*="loginID"]').should('have.text', randomEmail);
         // Step 8
         // Enter random password and click “Create my account”
-        cy.generateRandomString(10).then(randomString => {
-            cy.get('input[id*="password"]').type(randomString);
-        });
+        const randomPassword = Utils.generateRandomString(10);
+        cy.get('input[id*="password"]').type(randomPassword);
         cy.get('input[value="Create my account"]').click();
         // Thank you message is displayed
         cy.contains('Thank you, check your emails').should('be.visible');

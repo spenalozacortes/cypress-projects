@@ -11,14 +11,14 @@
 //
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
-Cypress.Commands.add('generateRandomString', (length) => {
-    const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
-    let randomString = '';
-    for (let i = 0; i < length; i++) {
-        randomString += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return randomString;
+import Utils from '../support/utils';
+
+Cypress.Commands.add('selectRandomSuffix', () => {
+    cy.get('.dropdown__list-item').then($elements => {
+      cy.wrap($elements.eq(Utils.generateRandomInt($elements.length))).click({ force: true });
+    });
 });
+
 //
 //
 // -- This is a child command --
