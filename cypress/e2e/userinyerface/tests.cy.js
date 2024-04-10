@@ -1,6 +1,7 @@
 /// <reference types="Cypress" />
 import urls from '../../fixtures/urls.json';
 import Utils from '../../support/utils';
+import { userinyerface } from '../../support/locators';
 
 describe('test suite', () => {
   beforeEach(() => {
@@ -8,49 +9,49 @@ describe('test suite', () => {
   });
 
   it('help form test', () => {
-    cy.get('.start__button').should('exist');
-    cy.get('.start__link').click();
-    cy.get('.game').should('exist');
-    cy.get('a[class*="help-button"]').click();
-    cy.get('.help-form__response').should('be.visible');
+    cy.get(userinyerface.startButton).should('exist');
+    cy.get(userinyerface.startLink).click();
+    cy.get(userinyerface.game).should('exist');
+    cy.get(userinyerface.helpButton).click();
+    cy.get(userinyerface.helpResponse).should('be.visible');
   });
 
   it('timer test', () => {
-    cy.get('.start__button').should('exist');
-    cy.get('.start__link').click();
-    cy.get('.game').should('exist');
-    cy.get('.timer').should('have.text', '00:00:00');
+    cy.get(userinyerface.startButton).should('exist');
+    cy.get(userinyerface.startLink).click();
+    cy.get(userinyerface.game).should('exist');
+    cy.get(userinyerface.timer).should('have.text', '00:00:00');
   });
 
   it('valid password test', () => {
-    cy.get('.start__button').should('exist');
-    cy.get('.start__link').click();
-    cy.get('.game').should('exist');
+    cy.get(userinyerface.startButton).should('exist');
+    cy.get(userinyerface.startLink).click();
+    cy.get(userinyerface.game).should('exist');
     let randomEmail = Utils.generateRandomString(5);
     let randomDomain = Utils.generateRandomString(5);
-    cy.get('input[placeholder="Your email"]').clear().type(randomEmail);
-    cy.get('input[placeholder="Domain"]').clear().type(randomDomain);
+    cy.get(userinyerface.emailField).clear().type(randomEmail);
+    cy.get(userinyerface.domainField).clear().type(randomDomain);
     cy.selectRandomSuffix();
     let randomPassword = Utils.generateRandomPassword(10, randomEmail);
-    cy.get('input[placeholder="Choose Password"]').clear().type(randomPassword);
-    cy.get('#accept-terms-conditions').uncheck({ force: true });
-    cy.contains('Next').click();
-    cy.get('.page-indicator').should('have.text', '2 / 4');
+    cy.get(userinyerface.passwordField).clear().type(randomPassword);
+    cy.get(userinyerface.conditionsCheckbox).uncheck({ force: true });
+    cy.contains(userinyerface.nextLink).click();
+    cy.get(userinyerface.pageIndicator).should('have.text', '2 / 4');
   });
 
   it('invalid password test', () => {
-    cy.get('.start__button').should('exist');
-    cy.get('.start__link').click();
-    cy.get('.game').should('exist');
+    cy.get(userinyerface.startButton).should('exist');
+    cy.get(userinyerface.startLink).click();
+    cy.get(userinyerface.game).should('exist');
     let randomEmail = Utils.generateRandomString(5);
     let randomDomain = Utils.generateRandomString(5);
-    cy.get('input[placeholder="Your email"]').clear().type(randomEmail);
-    cy.get('input[placeholder="Domain"]').clear().type(randomDomain);
+    cy.get(userinyerface.emailField).clear().type(randomEmail);
+    cy.get(userinyerface.domainField).clear().type(randomDomain);
     cy.selectRandomSuffix();
     let invalidRandomPassword = Utils.generateRandomString(5);
-    cy.get('input[placeholder="Choose Password"]').clear().type(invalidRandomPassword);
-    cy.get('#accept-terms-conditions').uncheck({ force: true });
-    cy.contains('Next').click();
-    cy.get('.page-indicator').should('not.have.text', '2 / 4');
+    cy.get(userinyerface.passwordField).clear().type(invalidRandomPassword);
+    cy.get(userinyerface.conditionsCheckbox).uncheck({ force: true });
+    cy.contains(userinyerface.nextLink).click();
+    cy.get(userinyerface.pageIndicator).should('not.have.text', '2 / 4');
   });
 });
