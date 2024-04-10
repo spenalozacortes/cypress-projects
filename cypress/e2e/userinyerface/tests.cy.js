@@ -2,6 +2,7 @@
 import urls from '../../fixtures/urls.json';
 import Utils from '../../support/utils';
 import { userinyerface } from '../../support/locators';
+import { assertions } from './assertionData';
 
 describe('test suite', () => {
   beforeEach(() => {
@@ -9,24 +10,24 @@ describe('test suite', () => {
   });
 
   it('help form test', () => {
-    cy.get(userinyerface.startButton).should('exist');
+    cy.get(userinyerface.startButton).should('be.visible');
     cy.get(userinyerface.startLink).click();
-    cy.get(userinyerface.game).should('exist');
+    cy.get(userinyerface.game).should('be.visible');
     cy.get(userinyerface.helpButton).click();
     cy.get(userinyerface.helpResponse).should('be.visible');
   });
 
   it('timer test', () => {
-    cy.get(userinyerface.startButton).should('exist');
+    cy.get(userinyerface.startButton).should('be.visible');
     cy.get(userinyerface.startLink).click();
-    cy.get(userinyerface.game).should('exist');
-    cy.get(userinyerface.timer).should('have.text', '00:00:00');
+    cy.get(userinyerface.game).should('be.visible');
+    cy.get(userinyerface.timer).should('have.text', assertions.timer);
   });
 
   it('valid password test', () => {
-    cy.get(userinyerface.startButton).should('exist');
+    cy.get(userinyerface.startButton).should('be.visible');
     cy.get(userinyerface.startLink).click();
-    cy.get(userinyerface.game).should('exist');
+    cy.get(userinyerface.game).should('be.visible');
     let randomEmail = Utils.generateRandomString(5);
     let randomDomain = Utils.generateRandomString(5);
     cy.get(userinyerface.emailField).clear().type(randomEmail);
@@ -36,13 +37,13 @@ describe('test suite', () => {
     cy.get(userinyerface.passwordField).clear().type(randomPassword);
     cy.get(userinyerface.conditionsCheckbox).uncheck({ force: true });
     cy.contains(userinyerface.nextLink).click();
-    cy.get(userinyerface.pageIndicator).should('have.text', '2 / 4');
+    cy.get(userinyerface.pageIndicator).should('have.text', assertions.secondPageIndicator);
   });
 
   it('invalid password test', () => {
-    cy.get(userinyerface.startButton).should('exist');
+    cy.get(userinyerface.startButton).should('be.visible');
     cy.get(userinyerface.startLink).click();
-    cy.get(userinyerface.game).should('exist');
+    cy.get(userinyerface.game).should('be.visible');
     let randomEmail = Utils.generateRandomString(5);
     let randomDomain = Utils.generateRandomString(5);
     cy.get(userinyerface.emailField).clear().type(randomEmail);
@@ -52,6 +53,6 @@ describe('test suite', () => {
     cy.get(userinyerface.passwordField).clear().type(invalidRandomPassword);
     cy.get(userinyerface.conditionsCheckbox).uncheck({ force: true });
     cy.contains(userinyerface.nextLink).click();
-    cy.get(userinyerface.pageIndicator).should('not.have.text', '2 / 4');
+    cy.get(userinyerface.pageIndicator).should('not.have.text', assertions.secondPageIndicator);
   });
 });

@@ -28,6 +28,7 @@ export const euronews = {
     programs: '.c-program-card',
     newslettersLink: 'Newsletters',
     newsletters: '.p-8',
+    newsletterText: 'h2',
     frequencyText: '.mt-2',
     descriptionText: '.mt-4',
     createAccountPopup: '.cta-newsletter-esturgeon',

@@ -4,6 +4,7 @@ import newsletters from '../../fixtures/newsletters.json';
 import testdata from '../../fixtures/testdata.json';
 import utils from '../../support/utils';
 import { euronews } from '../../support/locators';
+import { assertions } from './assertionData';
 
 describe('Euronews tests', () => {
     beforeEach(() => {
@@ -14,7 +15,7 @@ describe('Euronews tests', () => {
 
     it('test case 1', () => {
         // Main page of Euronews is opened 
-        cy.url().should('eq', 'https://www.euronews.com/');
+        cy.url().should('eq', assertions.baseUrl);
         cy.get(euronews.agreeCookiesButton).click();
         // Top tags are displayed
         cy.get(euronews.topTags).should('be.visible');
@@ -42,7 +43,7 @@ describe('Euronews tests', () => {
         // Click on any topic in “My Europe”
         cy.contains(euronews.topic).click();
         // My Europe page is opened
-        cy.url().should('contain', 'my-europe');
+        cy.url().should('contain', assertions.myEuropeUrl);
         // Each news item is labeled according to the selected topic
         cy.get(euronews.labels).each($label => {
             cy.wrap($label).should('contain.text', testdata.topic);
@@ -56,7 +57,7 @@ describe('Euronews tests', () => {
 
     it('test case 2', () => {
         // Main page of Euronews is opened 
-        cy.url().should('eq', 'https://www.euronews.com/');
+        cy.url().should('eq', assertions.baseUrl);
         cy.get(euronews.agreeCookiesButton).click();
         // Top tags are displayed
         cy.get(euronews.topTags).should('be.visible');
@@ -64,7 +65,7 @@ describe('Euronews tests', () => {
         // Follow the link "Newsletters" in the header 
         cy.contains(euronews.newslettersLink).click();
         // Page "Newsletters" is opened 
-        cy.url().should('contain', 'newsletters');
+        cy.url().should('contain', assertions.newslettersUrl);
         // Step 3
         // Check if following newsletters and their data are present on the page
         // All mentioned newsletters are present on the page and their data is matching 
@@ -82,28 +83,28 @@ describe('Euronews tests', () => {
         // Click "Select this newsletter" on any newsletter
         cy.selectNewsletter(testdata.newsletters[0]);
         // Create account pop-up is pinned. 
-        cy.get(euronews.createAccountPopup).should('have.class', 'sticky');
+        cy.get(euronews.createAccountPopup).should('have.class', assertions.popupClass);
         // Step 5
         // Click “Chosen”
         cy.get(euronews.newsletters).each(($el, index, $list) => {
-            if ($el.find('h2').text().includes(testdata.newsletters[0])) {
+            if ($el.find(euronews.newsletterText).text().includes(testdata.newsletters[0])) {
                 cy.wrap($el.find(euronews.chosenButton)).click();
             }
         });
         // Create account pop-up has unpinned
-        cy.get(euronews.createAccountPopup).should('not.have.class', 'sticky');
+        cy.get(euronews.createAccountPopup).should('not.have.class', assertions.popupClass);
         // Step 6
         // Repeat step 4 
         cy.selectNewsletter(testdata.newsletters[1]);
         // Create account pop-up is pinned. 
-        cy.get(euronews.createAccountPopup).should('have.class', 'sticky');
+        cy.get(euronews.createAccountPopup).should('have.class', assertions.popupClass);
         // Step 7
         // Type random email in create account pop-up. Click “Continue” 
-        const randomEmail = utils.generateRandomString(5) + '@gmail.com';
+        const randomEmail = utils.generateRandomString(5) + testdata.domain;
         cy.get(euronews.emailFieldPopup).type(randomEmail);
         cy.get(euronews.continueButton).click();
         // Complete registration page is opened
-        cy.url().should('contain', 'register');
+        cy.url().should('contain', assertions.registerUrl);
         // The email field is automatically filled with the correct email
         cy.get(euronews.emailField).should('have.text', randomEmail);
         // Step 8
