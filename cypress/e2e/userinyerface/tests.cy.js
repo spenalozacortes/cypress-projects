@@ -1,11 +1,15 @@
 /// <reference types="Cypress" />
+import urls from '../../fixtures/urls.json';
 
 const letters = 'abcdefghijklmnopqrstuvwxyz';
 const digits = '1234567890';
 
 describe('test suite', () => {
+  beforeEach(() => {
+    cy.visit(urls.userinyerface);
+  });
+
   it('help form test', () => {
-    cy.visit('https://userinyerface.com/');
     cy.get('.start__button').should('exist');
     cy.get('.start__link').click();
     cy.get('.game').should('exist');
@@ -14,7 +18,6 @@ describe('test suite', () => {
   });
 
   it('timer test', () => {
-    cy.visit('https://userinyerface.com/');
     cy.get('.start__button').should('exist');
     cy.get('.start__link').click();
     cy.get('.game').should('exist');
@@ -22,7 +25,6 @@ describe('test suite', () => {
   });
 
   it('valid password test', () => {
-    cy.visit('https://userinyerface.com/');
     cy.get('.start__button').should('exist');
     cy.get('.start__link').click();
     cy.get('.game').should('exist');
@@ -39,7 +41,6 @@ describe('test suite', () => {
   });
 
   it('invalid password test', () => {
-    cy.visit('https://userinyerface.com/');
     cy.get('.start__button').should('exist');
     cy.get('.start__link').click();
     cy.get('.game').should('exist');

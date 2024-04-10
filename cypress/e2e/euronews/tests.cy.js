@@ -1,11 +1,12 @@
 /// <reference types="Cypress" />
+import urls from '../../fixtures/urls.json';
 import newsletters from '../../fixtures/newsletters.json';
 
 describe('Euronews tests', () => {
     beforeEach(() => {
         // Step 1
         // Follow the euronews.com 
-        cy.visit('https://www.euronews.com/');
+        cy.visit(urls.euronews);
     });
 
     it('test case 1', () => {
