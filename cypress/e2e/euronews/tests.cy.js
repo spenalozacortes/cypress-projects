@@ -1,6 +1,7 @@
 /// <reference types="Cypress" />
 import urls from '../../fixtures/urls.json';
 import newsletters from '../../fixtures/newsletters.json';
+import testdata from '../../fixtures/testdata.json';
 
 describe('Euronews tests', () => {
     beforeEach(() => {
@@ -19,7 +20,7 @@ describe('Euronews tests', () => {
         cy.get('.b-topstories-home').should('be.visible');
         // Step 2
         // Open one of Views 
-        cy.get('.b-topstories-home__aside__article h2 a').eq(2).click().invoke('text').then(homeTitle => {
+        cy.get('.b-topstories-home__aside__article h2 a').eq(0).click().invoke('text').then(homeTitle => {
             // View is opened and has the correct title (corresponds to the title on the home page) 
             cy.get('.jsArticleFirst.swiper-slide-active h1').should('contain.text', homeTitle.trim());
         });
@@ -28,10 +29,9 @@ describe('Euronews tests', () => {
         cy.get('.c-programs-icon').click();
         // All mandatory programs are on the list: My europe, Sport, World, Next, Travel, Green, Culture, Special coverage, Partner content
         cy.get('.c-programs-menu__categories .title').as('titles');
-        const programs = ['My europe', 'Sport', 'World', 'Next', 'Travel', 'Green', 'Culture', 'Special coverage', 'Partner content'];
         cy.get('@titles').then($titles => {
             const titlesStrings = [...$titles].map(el => el.innerText);
-            expect(titlesStrings).to.deep.include.members(programs);
+            expect(titlesStrings).to.include.members(testdata.programs);
         });
         // All programs have at least 1 topic
         cy.get('@titles').each($title => {
