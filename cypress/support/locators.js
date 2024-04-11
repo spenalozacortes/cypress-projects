@@ -10,7 +10,9 @@ export const userinyerface = {
     passwordField: 'input[placeholder="Choose Password"]',
     conditionsCheckbox: '.checkbox__box',
     nextLink: 'Next',
-    pageIndicator: '.page-indicator'
+    pageIndicator: '.page-indicator',
+    domainDropdown: '.dropdown__opener',
+    domains: '.dropdown__list-item'
 };
 
 export const euronews = {
@@ -33,7 +35,9 @@ export const euronews = {
     frequencyText: '.mt-2',
     descriptionText: '.mt-4',
     createAccountPopup: '.cta-newsletter-esturgeon',
+    newsletterButton: '.btn-tertiary',
     chosenButton: '.btn-tertiary-plain',
+    chosenText: '.checked-label',
     emailFieldPopup: '[type="email"]',
     continueButton: '[value="Continue"]',
     emailField: 'input[id*="loginID"]',
