@@ -15,10 +15,12 @@ import utils from '../support/utils';
 import { userinyerface } from './locators';
 import { euronews } from './locators';
 import { assertions } from '../e2e/euronews/assertionData';
+import GamePage from '../pageobjects/userinyerface/gamePage';
 
 Cypress.Commands.add('selectRandomSuffix', () => {
-    cy.get(userinyerface.domainDropdown).click();
-    cy.get(userinyerface.domains).then($elements => {
+    const gamePage = new GamePage();
+    gamePage.suffixDropdown.click();
+    gamePage.suffixes.then($elements => {
       cy.wrap($elements.eq(utils.generateRandomInt($elements.length))).click();
     });
 });

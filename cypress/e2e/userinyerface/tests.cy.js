@@ -1,58 +1,90 @@
 /// <reference types="Cypress" />
 import urls from '../../fixtures/urls.json';
-import Utils from '../../support/utils';
-import { userinyerface } from '../../support/locators';
+import utils from '../../support/utils';
 import { assertions } from './assertionData';
+import MainPage from '../../pageobjects/userinyerface/mainPage';
+import GamePage from '../../pageobjects/userinyerface/gamePage';
 
 describe('test suite', () => {
   beforeEach(() => {
+    // Step 1
+    // Navigate to main page by URL
     cy.visit(urls.userinyerface);
   });
 
   it('help form test', () => {
-    cy.get(userinyerface.startButton).should('be.visible');
-    cy.get(userinyerface.startLink).click();
-    cy.get(userinyerface.game).should('be.visible');
-    cy.get(userinyerface.helpButton).click();
-    cy.get(userinyerface.helpResponse).should('be.visible');
+    // Main page is open
+    const mainPage = new MainPage();
+    mainPage.startButton.should('be.visible');
+    // Click Here link
+    mainPage.startLink.click();
+    // Game page is open
+    const gamePage = new GamePage();  
+    gamePage.game.should('be.visible');
+    // Click help button on the help form
+    gamePage.helpButton.click();
+    // Help response is displayed
+    gamePage.helpResponse.should('be.visible');
   });
 
   it('timer test', () => {
-    cy.get(userinyerface.startButton).should('be.visible');
-    cy.get(userinyerface.startLink).click();
-    cy.get(userinyerface.game).should('be.visible');
-    cy.get(userinyerface.timer).should('have.text', assertions.timer);
+    // Main page is open
+    const mainPage = new MainPage();
+    mainPage.startButton.should('be.visible');
+    // Click Here link
+    mainPage.startLink.click();
+    // Game page is open
+    const gamePage = new GamePage();
+    gamePage.game.should('be.visible');
+    // The timer starts from zero
+    gamePage.timer.should('have.text', assertions.timer);
   });
 
   it('valid password test', () => {
-    cy.get(userinyerface.startButton).should('be.visible');
-    cy.get(userinyerface.startLink).click();
-    cy.get(userinyerface.game).should('be.visible');
-    let randomEmail = Utils.generateRandomString(5);
-    let randomDomain = Utils.generateRandomString(5);
-    cy.get(userinyerface.emailField).clear().type(randomEmail);
-    cy.get(userinyerface.domainField).clear().type(randomDomain);
+    // Main page is open
+    const mainPage = new MainPage();
+    mainPage.startButton.should('be.visible');
+    // Click Here link
+    mainPage.startLink.click();
+    // Game page is open
+    const gamePage = new GamePage();
+    gamePage.game.should('be.visible');
+    // Input random valid email, valid random password and accept terms and conditions
+    let randomEmail = utils.generateRandomString(10);
+    let randomDomain = utils.generateRandomString(5);
+    gamePage.emailField.clear().type(randomEmail);
+    gamePage.domainField.clear().type(randomDomain);
     cy.selectRandomSuffix();
-    let randomPassword = Utils.generateRandomPassword(10, randomEmail);
-    cy.get(userinyerface.passwordField).clear().type(randomPassword);
-    cy.get(userinyerface.conditionsCheckbox).click();
-    cy.contains(userinyerface.nextLink).click();
-    cy.get(userinyerface.pageIndicator).should('have.text', assertions.secondPageIndicator);
+    let randomPassword = utils.generateRandomPassword(10, randomEmail);
+    gamePage.passwordField.clear().type(randomPassword);
+    gamePage.conditionsCheckbox.click();
+    // Click button to navigate to the next card
+    gamePage.nextLink.click();
+    // The second card is open
+    gamePage.pageIndicator.should('have.text', assertions.secondPageIndicator);
   });
 
   it('invalid password test', () => {
-    cy.get(userinyerface.startButton).should('be.visible');
-    cy.get(userinyerface.startLink).click();
-    cy.get(userinyerface.game).should('be.visible');
-    let randomEmail = Utils.generateRandomString(5);
-    let randomDomain = Utils.generateRandomString(5);
-    cy.get(userinyerface.emailField).clear().type(randomEmail);
-    cy.get(userinyerface.domainField).clear().type(randomDomain);
+    // Main page is open
+    const mainPage = new MainPage();
+    mainPage.startButton.should('be.visible');
+    // Click Here link
+    mainPage.startLink.click();
+    // Game page is open
+    const gamePage = new GamePage();
+    gamePage.game.should('be.visible');
+    // Input random valid email, invalid random password and accept terms and conditions
+    let randomEmail = utils.generateRandomString(10);
+    let randomDomain = utils.generateRandomString(5);
+    gamePage.emailField.clear().type(randomEmail);
+    gamePage.domainField.clear().type(randomDomain);
     cy.selectRandomSuffix();
-    let invalidRandomPassword = Utils.generateRandomString(5);
-    cy.get(userinyerface.passwordField).clear().type(invalidRandomPassword);
-    cy.get(userinyerface.conditionsCheckbox).click();
-    cy.contains(userinyerface.nextLink).click();
-    cy.get(userinyerface.pageIndicator).should('not.have.text', assertions.secondPageIndicator);
+    let invalidRandomPassword = utils.generateRandomString(5);
+    gamePage.passwordField.clear().type(invalidRandomPassword);
+    gamePage.conditionsCheckbox.click();
+    // Click button to navigate to the next card
+    gamePage.nextLink.click();
+    // The second card isn't open
+    gamePage.pageIndicator.should('not.have.text', assertions.secondPageIndicator);
   });
 });

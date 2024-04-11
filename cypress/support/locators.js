@@ -11,8 +11,8 @@ export const userinyerface = {
     conditionsCheckbox: '.checkbox__box',
     nextLink: 'Next',
     pageIndicator: '.page-indicator',
-    domainDropdown: '.dropdown__opener',
-    domains: '.dropdown__list-item'
+    suffixDropdown: '.dropdown__opener',
+    suffixes: '.dropdown__list-item'
 };
 
 export const euronews = {
