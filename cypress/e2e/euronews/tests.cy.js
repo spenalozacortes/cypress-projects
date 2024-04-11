@@ -23,7 +23,7 @@ describe('Euronews tests', () => {
         cy.get(euronews.views).should('be.visible');
         // Step 2
         // Open one of Views 
-        cy.get(euronews.viewsTitles).eq(0).click().invoke('text').then(homeTitle => {
+        cy.get(euronews.viewsTitles).eq(1).click().invoke('text').then(homeTitle => {
             // View is opened and has the correct title (corresponds to the title on the home page) 
             cy.get(euronews.viewTitle).should('contain.text', homeTitle.trim());
         }); 
@@ -50,7 +50,8 @@ describe('Euronews tests', () => {
         });
         // Step 5
         // Click “Programmes” -> “All Programmes”
-        cy.contains(euronews.programsLink).click({ force: true });
+        cy.get(euronews.programsDropdown).click();
+        cy.contains(euronews.programsLink).click();
         // More than 30 programs are displayed
         cy.get(euronews.programs).should('have.length.above', 30);
     });

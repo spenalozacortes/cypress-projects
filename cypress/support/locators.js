@@ -8,7 +8,7 @@ export const userinyerface = {
     emailField: 'input[placeholder="Your email"]',
     domainField: 'input[placeholder="Domain"]',
     passwordField: 'input[placeholder="Choose Password"]',
-    conditionsCheckbox: '#accept-terms-conditions',
+    conditionsCheckbox: '.checkbox__box',
     nextLink: 'Next',
     pageIndicator: '.page-indicator'
 };
@@ -24,6 +24,7 @@ export const euronews = {
     topicLinks: '.list-item__link',
     topic: 'Europe Decoded',
     labels: '.program-name',
+    programsDropdown: '.c-programs-icon',
     programsLink: 'All Programmes',
     programs: '.c-program-card',
     newslettersLink: 'Newsletters',

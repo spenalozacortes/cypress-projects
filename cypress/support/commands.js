@@ -14,8 +14,9 @@
 import Utils from '../support/utils';
 
 Cypress.Commands.add('selectRandomSuffix', () => {
+    cy.get('.dropdown__opener').click();
     cy.get('.dropdown__list-item').then($elements => {
-      cy.wrap($elements.eq(Utils.generateRandomInt($elements.length))).click({ force: true });
+      cy.wrap($elements.eq(Utils.generateRandomInt($elements.length))).click();
     });
 });
 

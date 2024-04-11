@@ -35,7 +35,7 @@ describe('test suite', () => {
     cy.selectRandomSuffix();
     let randomPassword = Utils.generateRandomPassword(10, randomEmail);
     cy.get(userinyerface.passwordField).clear().type(randomPassword);
-    cy.get(userinyerface.conditionsCheckbox).uncheck({ force: true });
+    cy.get(userinyerface.conditionsCheckbox).click();
     cy.contains(userinyerface.nextLink).click();
     cy.get(userinyerface.pageIndicator).should('have.text', assertions.secondPageIndicator);
   });
@@ -51,7 +51,7 @@ describe('test suite', () => {
     cy.selectRandomSuffix();
     let invalidRandomPassword = Utils.generateRandomString(5);
     cy.get(userinyerface.passwordField).clear().type(invalidRandomPassword);
-    cy.get(userinyerface.conditionsCheckbox).uncheck({ force: true });
+    cy.get(userinyerface.conditionsCheckbox).click();
     cy.contains(userinyerface.nextLink).click();
     cy.get(userinyerface.pageIndicator).should('not.have.text', assertions.secondPageIndicator);
   });
