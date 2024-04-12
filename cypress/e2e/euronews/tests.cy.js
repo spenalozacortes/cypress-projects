@@ -18,7 +18,7 @@ describe('Euronews tests', () => {
         cy.visit(urls.euronews);
     });
 
-    xit('test case 1', () => {
+    it('test case 1', () => {
         // Main page of Euronews is opened
         const mainPage = new MainPage(); 
         cy.url().should('eq', assertions.baseUrl);
@@ -29,7 +29,7 @@ describe('Euronews tests', () => {
         mainPage.views.should('be.visible');
         // Step 2
         // Open one of Views 
-        mainPage.viewTitles.eq(2).click().invoke('text').then(homeTitle => {
+        mainPage.viewTitles.eq(testdata.view).click().invoke('text').then(homeTitle => {
             // View is opened and has the correct title (corresponds to the title on the home page) 
             mainPage.viewTitle.should('contain.text', homeTitle.trim());
         }); 
@@ -61,7 +61,7 @@ describe('Euronews tests', () => {
         topicPage.programsLink.click();
         // More than 30 programs are displayed
         const programsPage = new ProgramsPage();
-        programsPage.programs.should('have.length.above', 30);
+        programsPage.programs.should('have.length.above', testdata.minPrograms);
     });
 
     it('test case 2', () => {
@@ -92,13 +92,13 @@ describe('Euronews tests', () => {
         });
         // Step 4 
         // Click "Select this newsletter" on any newsletter
-        cy.selectNewsletter(testdata.newsletters[0]);
+        cy.selectNewsletter(testdata.newsletterNames[testdata.firstNewsletter]);
         // Create account pop-up is pinned. 
         newslettersPage.createAccountPopup.should('have.class', assertions.popupClass);
         // Step 5
         // Click “Chosen”
         newslettersPage.newsletters.each(($el, index, $list) => {
-            if ($el.find(euronews.newsletterText).text().includes(testdata.newsletters[0])) {
+            if ($el.find(euronews.newsletterText).text().includes(testdata.newsletterNames[testdata.firstNewsletter])) {
                 cy.wrap($el.find(euronews.chosenButton)).click();
             }
         });
@@ -106,12 +106,12 @@ describe('Euronews tests', () => {
         newslettersPage.createAccountPopup.should('not.have.class', assertions.popupClass);
         // Step 6
         // Repeat step 4 
-        cy.selectNewsletter(testdata.newsletters[1]);
+        cy.selectNewsletter(testdata.newsletterNames[testdata.secondNewsletter]);
         // Create account pop-up is pinned. 
         newslettersPage.createAccountPopup.should('have.class', assertions.popupClass);
         // Step 7
         // Type random email in create account pop-up. Click “Continue” 
-        const randomEmail = utils.generateRandomString(10) + testdata.domain;
+        const randomEmail = utils.generateRandomString(testdata.emailLength) + testdata.domain;
         newslettersPage.emailField.type(randomEmail);
         newslettersPage.continueButton.click();
         // Complete registration page is opened
@@ -121,7 +121,7 @@ describe('Euronews tests', () => {
         registrationPage.emailField.should('have.text', randomEmail);
         // Step 8
         // Enter random password and click “Create my account”
-        const randomPassword = utils.generateRandomString(10);
+        const randomPassword = utils.generateRandomString(testdata.passwordLength);
         registrationPage.passwordField.type(randomPassword);
         registrationPage.createAccountButton.click();
         // Thank you message is displayed

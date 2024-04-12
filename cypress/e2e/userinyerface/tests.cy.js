@@ -1,5 +1,6 @@
 /// <reference types="Cypress" />
 import urls from '../../fixtures/urls.json';
+import testdata from '../../fixtures/testdata.json';
 import utils from '../../support/utils';
 import { assertions } from './assertionData';
 import MainPage from '../../pageobjects/userinyerface/mainPage';
@@ -50,12 +51,12 @@ describe('test suite', () => {
     const gamePage = new GamePage();
     gamePage.game.should('be.visible');
     // Input random valid email, valid random password and accept terms and conditions
-    let randomEmail = utils.generateRandomString(10);
-    let randomDomain = utils.generateRandomString(5);
+    const randomEmail = utils.generateRandomString(testdata.emailLength);
+    const randomDomain = utils.generateRandomString(testdata.domainLength);
     gamePage.emailField.clear().type(randomEmail);
     gamePage.domainField.clear().type(randomDomain);
     cy.selectRandomSuffix();
-    let randomPassword = utils.generateRandomPassword(10, randomEmail);
+    const randomPassword = utils.generateRandomPassword(testdata.passwordLength, randomEmail);
     gamePage.passwordField.clear().type(randomPassword);
     gamePage.conditionsCheckbox.click();
     // Click button to navigate to the next card
@@ -74,12 +75,12 @@ describe('test suite', () => {
     const gamePage = new GamePage();
     gamePage.game.should('be.visible');
     // Input random valid email, invalid random password and accept terms and conditions
-    let randomEmail = utils.generateRandomString(10);
-    let randomDomain = utils.generateRandomString(5);
+    const randomEmail = utils.generateRandomString(testdata.emailLength);
+    const randomDomain = utils.generateRandomString(testdata.domainLength);
     gamePage.emailField.clear().type(randomEmail);
     gamePage.domainField.clear().type(randomDomain);
     cy.selectRandomSuffix();
-    let invalidRandomPassword = utils.generateRandomString(5);
+    const invalidRandomPassword = utils.generateRandomString(testdata.passwordLength);
     gamePage.passwordField.clear().type(invalidRandomPassword);
     gamePage.conditionsCheckbox.click();
     // Click button to navigate to the next card
