@@ -1,0 +1,13 @@
+{
+    "view": 0,
+    "programs": ["My europe", "Sport", "World", "Next", "Travel", "Green", "Culture", "Special coverage", "Partner content"],
+    "minPrograms": 30,
+    "newsletterNames": ["Euronews Today", "Travel"],
+    "firstNewsletter": 0,
+    "secondNewsletter": 1,
+    "topic": "Europe Decoded",
+    "emailLength": 10,
+    "domain": "@gmail.com",
+    "passwordLength": 10,
+    "domainLength": 6
+}

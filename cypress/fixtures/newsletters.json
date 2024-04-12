@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Green",
+        "frequency": "Weekly",
+        "description": "Your weekly informed guide on eco news & green views."  
+    },
+    {
+        "name": "The Watch",
+        "frequency": "Weekly",
+        "description": "A selection of best videos of the week and direct access to our series."   
+    },
+    {
+        "name": "Culture",
+        "frequency": "Weekly",
+        "description": "The best of Europe’s arts, gastronomy, traditions & high-end craftsmanship."   
+    }
+]
