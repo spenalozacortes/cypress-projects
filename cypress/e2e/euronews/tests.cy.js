@@ -5,6 +5,7 @@ import utils from '../../support/utils';
 import { euronews } from '../../support/locators';
 import { assertions } from './assertionData';
 import { mainPage } from '../../pageobjects/euronews/MainPage';
+import { mainPageSteps } from '../../pageobjects/euronews/MainPageSteps';
 import { topicPage } from '../../pageobjects/euronews/TopicPage';
 import { programsPage } from '../../pageobjects/euronews/ProgramsPage';
 import { newslettersPage } from '../../pageobjects/euronews/NewslettersPage';
@@ -20,8 +21,7 @@ describe('Euronews tests', () => {
 
     it('test case 1', () => {
         // Main page of Euronews is opened 
-        cy.url().should('eq', assertions.baseUrl);
-        mainPage.agreeCookiesButton.click();
+        mainPageSteps.visitPage();
         // Top tags are displayed
         mainPage.topTags.should('be.visible');
         // Views displayed 
@@ -63,8 +63,7 @@ describe('Euronews tests', () => {
 
     it('test case 2', () => {
         // Main page of Euronews is opened 
-        cy.url().should('eq', assertions.baseUrl);
-        mainPage.agreeCookiesButton.click();
+        mainPageSteps.visitPage();
         // Top tags are displayed
         mainPage.topTags.should('be.visible');
         // Step 2
