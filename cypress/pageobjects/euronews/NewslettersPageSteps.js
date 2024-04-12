@@ -4,6 +4,7 @@ import newsletters from '../../fixtures/newsletters.json';
 import { euronews } from "../../support/locators";
 
 class NewslettersPageSteps {
+    
     checkNewslettersData() {
         newsletters.forEach(newsletter => {
             newslettersPage.newsletters.contains(newsletter.name).should('be.visible');

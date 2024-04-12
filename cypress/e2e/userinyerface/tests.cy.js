@@ -5,6 +5,7 @@ import utils from '../../support/utils';
 import { assertions } from './assertionData';
 import { mainPage } from '../../pageobjects/userinyerface/mainPage';
 import { gamePage } from '../../pageobjects/userinyerface/gamePage';
+import { gamePageSteps } from '../../pageobjects/userinyerface/GamePageSteps';
 
 describe('test suite', () => {
   beforeEach(() => {
@@ -47,11 +48,8 @@ describe('test suite', () => {
     // Input random valid email, valid random password and accept terms and conditions
     const randomEmail = utils.generateRandomString(testdata.emailLength);
     const randomDomain = utils.generateRandomString(testdata.domainLength);
-    gamePage.emailField.clear().type(randomEmail);
-    gamePage.domainField.clear().type(randomDomain);
-    cy.selectRandomSuffix();
     const randomPassword = utils.generateRandomPassword(testdata.passwordLength, randomEmail);
-    gamePage.passwordField.clear().type(randomPassword);
+    gamePageSteps.login(randomEmail, randomDomain, randomPassword);
     gamePage.conditionsCheckbox.click();
     // Click button to navigate to the next card
     gamePage.nextLink.click();
@@ -69,11 +67,8 @@ describe('test suite', () => {
     // Input random valid email, invalid random password and accept terms and conditions
     const randomEmail = utils.generateRandomString(testdata.emailLength);
     const randomDomain = utils.generateRandomString(testdata.domainLength);
-    gamePage.emailField.clear().type(randomEmail);
-    gamePage.domainField.clear().type(randomDomain);
-    cy.selectRandomSuffix();
     const invalidRandomPassword = utils.generateRandomString(testdata.passwordLength);
-    gamePage.passwordField.clear().type(invalidRandomPassword);
+    gamePageSteps.login(randomEmail, randomDomain, invalidRandomPassword);
     gamePage.conditionsCheckbox.click();
     // Click button to navigate to the next card
     gamePage.nextLink.click();
