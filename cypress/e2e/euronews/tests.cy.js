@@ -1,15 +1,15 @@
 /// <reference types="Cypress" />
 import urls from '../../fixtures/urls.json';
-import newsletters from '../../fixtures/newsletters.json';
 import testdata from '../../fixtures/testdata.json';
 import utils from '../../support/utils';
 import { euronews } from '../../support/locators';
 import { assertions } from './assertionData';
-import { mainPage } from '../../pageobjects/euronews/mainPage';
-import { topicPage } from '../../pageobjects/euronews/topicPage';
-import { programsPage } from '../../pageobjects/euronews/programsPage';
-import { newslettersPage } from '../../pageobjects/euronews/newslettersPage';
-import { registrationPage } from '../../pageobjects/euronews/registrationPage';
+import { mainPage } from '../../pageobjects/euronews/MainPage';
+import { topicPage } from '../../pageobjects/euronews/TopicPage';
+import { programsPage } from '../../pageobjects/euronews/ProgramsPage';
+import { newslettersPage } from '../../pageobjects/euronews/NewslettersPage';
+import { newslettersPageSteps } from '../../pageobjects/euronews/NewslettersPageSteps';
+import { registrationPage } from '../../pageobjects/euronews/RegistrationPage';
 
 describe('Euronews tests', () => {
     beforeEach(() => {
@@ -75,16 +75,7 @@ describe('Euronews tests', () => {
         // Step 3
         // Check if following newsletters and their data are present on the page
         // All mentioned newsletters are present on the page and their data is matching 
-        newsletters.forEach(newsletter => {
-            newslettersPage.newsletters.contains(newsletter.name).should('be.visible');
-            newslettersPage.newsletters.each(($el, index, $list) => {
-                const name = $el.text();
-                if (name.includes(newsletter.name)) {
-                    expect($el.find(euronews.frequency).text()).to.contain(newsletter.frequency);
-                    expect($el.find(euronews.description).text()).to.contain(newsletter.description);
-                }
-            });
-        });
+        newslettersPageSteps.checkNewslettersData();
         // Step 4 
         // Click "Select this newsletter" on any newsletter
         cy.selectNewsletter(testdata.newsletterNames[testdata.firstNewsletter]);
