@@ -3,8 +3,8 @@ import urls from '../../fixtures/urls.json';
 import testdata from '../../fixtures/testdata.json';
 import utils from '../../support/utils';
 import { assertions } from './assertionData';
-import MainPage from '../../pageobjects/userinyerface/mainPage';
-import GamePage from '../../pageobjects/userinyerface/gamePage';
+import { mainPage } from '../../pageobjects/userinyerface/mainPage';
+import { gamePage } from '../../pageobjects/userinyerface/gamePage';
 
 describe('test suite', () => {
   beforeEach(() => {
@@ -15,12 +15,10 @@ describe('test suite', () => {
 
   it('help form test', () => {
     // Main page is open
-    const mainPage = new MainPage();
     mainPage.startButton.should('be.visible');
     // Click Here link
     mainPage.startLink.click();
-    // Game page is open
-    const gamePage = new GamePage();  
+    // Game page is open  
     gamePage.game.should('be.visible');
     // Click help button on the help form
     gamePage.helpButton.click();
@@ -30,12 +28,10 @@ describe('test suite', () => {
 
   it('timer test', () => {
     // Main page is open
-    const mainPage = new MainPage();
     mainPage.startButton.should('be.visible');
     // Click Here link
     mainPage.startLink.click();
     // Game page is open
-    const gamePage = new GamePage();
     gamePage.game.should('be.visible');
     // The timer starts from zero
     gamePage.timer.should('have.text', assertions.timer);
@@ -43,12 +39,10 @@ describe('test suite', () => {
 
   it('valid password test', () => {
     // Main page is open
-    const mainPage = new MainPage();
     mainPage.startButton.should('be.visible');
     // Click Here link
     mainPage.startLink.click();
     // Game page is open
-    const gamePage = new GamePage();
     gamePage.game.should('be.visible');
     // Input random valid email, valid random password and accept terms and conditions
     const randomEmail = utils.generateRandomString(testdata.emailLength);
@@ -67,12 +61,10 @@ describe('test suite', () => {
 
   it('invalid password test', () => {
     // Main page is open
-    const mainPage = new MainPage();
     mainPage.startButton.should('be.visible');
     // Click Here link
     mainPage.startLink.click();
     // Game page is open
-    const gamePage = new GamePage();
     gamePage.game.should('be.visible');
     // Input random valid email, invalid random password and accept terms and conditions
     const randomEmail = utils.generateRandomString(testdata.emailLength);

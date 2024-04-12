@@ -7,4 +7,4 @@ class ProgramsPage {
     }
 }
 
-export default ProgramsPage;
+export const programsPage = new ProgramsPage();

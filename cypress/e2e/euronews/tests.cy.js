@@ -5,11 +5,11 @@ import testdata from '../../fixtures/testdata.json';
 import utils from '../../support/utils';
 import { euronews } from '../../support/locators';
 import { assertions } from './assertionData';
-import MainPage from '../../pageobjects/euronews/mainPage';
-import TopicPage from '../../pageobjects/euronews/topicPage';
-import ProgramsPage from '../../pageobjects/euronews/programsPage';
-import NewslettersPage from '../../pageobjects/euronews/newslettersPage';
-import RegistrationPage from '../../pageobjects/euronews/registrationPage';
+import { mainPage } from '../../pageobjects/euronews/mainPage';
+import { topicPage } from '../../pageobjects/euronews/topicPage';
+import { programsPage } from '../../pageobjects/euronews/programsPage';
+import { newslettersPage } from '../../pageobjects/euronews/newslettersPage';
+import { registrationPage } from '../../pageobjects/euronews/registrationPage';
 
 describe('Euronews tests', () => {
     beforeEach(() => {
@@ -19,8 +19,7 @@ describe('Euronews tests', () => {
     });
 
     it('test case 1', () => {
-        // Main page of Euronews is opened
-        const mainPage = new MainPage(); 
+        // Main page of Euronews is opened 
         cy.url().should('eq', assertions.baseUrl);
         mainPage.agreeCookiesButton.click();
         // Top tags are displayed
@@ -49,7 +48,6 @@ describe('Euronews tests', () => {
         // Click on any topic in “My Europe”
         mainPage.topic.click();
         // My Europe page is opened
-        const topicPage = new TopicPage();
         cy.url().should('contain', assertions.myEuropeUrl);
         // Each news item is labeled according to the selected topic
         topicPage.labels.each($label => {
@@ -60,13 +58,11 @@ describe('Euronews tests', () => {
         topicPage.programsDropdown.click();
         topicPage.programsLink.click();
         // More than 30 programs are displayed
-        const programsPage = new ProgramsPage();
         programsPage.programs.should('have.length.above', testdata.minPrograms);
     });
 
     it('test case 2', () => {
-        // Main page of Euronews is opened
-        const mainPage = new MainPage(); 
+        // Main page of Euronews is opened 
         cy.url().should('eq', assertions.baseUrl);
         mainPage.agreeCookiesButton.click();
         // Top tags are displayed
@@ -75,7 +71,6 @@ describe('Euronews tests', () => {
         // Follow the link "Newsletters" in the header 
         mainPage.newslettersLink.click();
         // Page "Newsletters" is opened 
-        const newslettersPage = new NewslettersPage();
         cy.url().should('contain', assertions.newslettersUrl);
         // Step 3
         // Check if following newsletters and their data are present on the page
@@ -115,7 +110,6 @@ describe('Euronews tests', () => {
         newslettersPage.emailField.type(randomEmail);
         newslettersPage.continueButton.click();
         // Complete registration page is opened
-        const registrationPage = new RegistrationPage();
         cy.url().should('contain', assertions.registerUrl);
         // The email field is automatically filled with the correct email
         registrationPage.emailField.should('have.text', randomEmail);

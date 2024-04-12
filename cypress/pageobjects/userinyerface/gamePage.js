@@ -52,4 +52,4 @@ class GamePage {
     }
 }
 
-export default GamePage;
+export const gamePage = new GamePage();

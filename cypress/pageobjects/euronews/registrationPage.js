@@ -19,4 +19,4 @@ class RegistrationPage {
     }
 }
 
-export default RegistrationPage;
+export const registrationPage = new RegistrationPage();

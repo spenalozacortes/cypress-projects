@@ -39,4 +39,4 @@ class MainPage {
     }
 }
 
-export default MainPage;
+export const mainPage = new MainPage();

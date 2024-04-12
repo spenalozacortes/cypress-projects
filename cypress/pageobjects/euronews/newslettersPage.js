@@ -19,4 +19,4 @@ class NewslettersPage {
     }
 }
 
-export default NewslettersPage;
+export const newslettersPage = new NewslettersPage();

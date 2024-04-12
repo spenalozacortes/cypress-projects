@@ -12,13 +12,11 @@
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
 import utils from '../support/utils';
-import { userinyerface } from './locators';
 import { euronews } from './locators';
 import { assertions } from '../e2e/euronews/assertionData';
-import GamePage from '../pageobjects/userinyerface/gamePage';
+import { gamePage } from '../pageobjects/userinyerface/gamePage';
 
 Cypress.Commands.add('selectRandomSuffix', () => {
-    const gamePage = new GamePage();
     gamePage.suffixDropdown.click();
     gamePage.suffixes.then($elements => {
       cy.wrap($elements.eq(utils.generateRandomInt($elements.length))).click();

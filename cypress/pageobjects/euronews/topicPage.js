@@ -15,4 +15,4 @@ class TopicPage {
     }
 }
 
-export default TopicPage;
+export const topicPage = new TopicPage();
